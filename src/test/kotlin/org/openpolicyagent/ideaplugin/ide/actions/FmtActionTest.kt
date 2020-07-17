@@ -14,7 +14,7 @@ class FmtActionTest : OpaTestBase() {
 
     private fun doTest() {
         myFixture.configureByFile(fileName)
-        myFixture.performEditorAction("FmtAction")
+        myFixture.performEditorAction("org.openpolicyagent.ideaplugin.actions.FmtAction")
         myFixture.checkResultByFile(fileName.replace(".rego", "_after.rego"), true)
     }
 
