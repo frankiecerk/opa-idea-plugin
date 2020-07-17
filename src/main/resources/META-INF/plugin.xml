@@ -59,9 +59,9 @@
 
     <actions>
 
-        <action id="FmtAction"
+        <action id="org.openpolicyagent.ideaplugin.actions.FmtAction"
                 class="org.openpolicyagent.ideaplugin.ide.actions.FmtAction"
-                text="Reformat with Opa Fmt"
+                text="Reformat with opa fmt"
                 description="Reformat current file with Opa Fmt"
                 icon="AllIcons.Actions.RealIntentionBulb">
             <add-to-group group-id="CodeMenu" anchor="last"/>
@@ -70,11 +70,18 @@
 
         <action id="org.openpolicyagent.ideaplugin.actions.CheckAction"
                 class="org.openpolicyagent.ideaplugin.ide.actions.CheckAction"
-                text="Check with Opa Check"
+                text="Check with opa check"
                 description="Check current file with Opa Check"
                 icon="AllIcons.Actions.RealIntentionBulb">
-            <add-to-group group-id="CodeMenu" anchor="before" relative-to-action="FmtAction"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl k"/>
+            <add-to-group group-id="CodeMenu" anchor="before" relative-to-action="org.openpolicyagent.ideaplugin.actions.FmtAction"/>
+        </action>
+
+        <action id="org.openpolicyagent.ideaplugin.actions.TestAction"
+                class="org.openpolicyagent.ideaplugin.ide.actions.TestAction"
+                text="Test workspace with opa test"
+                description="Test workspace with opa test"
+                icon="AllIcons.Actions.RealIntentionBulb">
+            <add-to-group group-id="CodeMenu" anchor="before" relative-to-action="org.openpolicyagent.ideaplugin.actions.CheckAction"/>
         </action>
 
         <action id="org.openpolicyagent.ideaplugin.ide.actions.RegoCreateFileAction"
