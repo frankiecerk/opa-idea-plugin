@@ -42,9 +42,16 @@ class OpaActions : OpaBaseTool() {
      */
      fun testWorkspace(project: Project, document: Document, editor: Editor) {
             val opaWindow = OPAActionToolWindow()
-            val path = project.basePath ?: return
             val args = mutableListOf("test", ".", "--verbose")
             opaWindow.runProcessInConsole(project, args, "Opa Test")
             //todo: possibly check if project contains no rego files?
     }
+
+    fun testWorkspaceCoverage(project: Project, document: Document, editor: Editor) {
+        val opaWindow = OPAActionToolWindow()
+        val args = mutableListOf("test", "--coverage", "--format=json", ".")
+        opaWindow.runProcessInConsole(project, args, "Opa Test Coverage")
+        //todo: possibly check if project contains no rego files?
+    }
+
 }

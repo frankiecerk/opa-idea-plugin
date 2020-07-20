@@ -1,5 +1,9 @@
 package org.openpolicyagent.ideaplugin.ide.actions
 
+//todo: currently, if a tool window/terminal is selected rather than text editor,
+// these functions don't return the project/document currently displayed
+// possible soln is to make the consoleViews unselectable ?
+
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.editor.Document

@@ -84,6 +84,14 @@
             <add-to-group group-id="CodeMenu" anchor="before" relative-to-action="org.openpolicyagent.ideaplugin.actions.CheckAction"/>
         </action>
 
+        <action id="org.openpolicyagent.ideaplugin.actions.TestCoverageAction"
+                class="org.openpolicyagent.ideaplugin.ide.actions.TestCoverageAction"
+                text="View test coverage for workspace with opa test --coverage"
+                description="View test coverage for workspace with opa test --coverage"
+                icon="AllIcons.Actions.RealIntentionBulb">
+            <add-to-group group-id="CodeMenu" anchor="before" relative-to-action="org.openpolicyagent.ideaplugin.actions.TestAction"/>
+        </action>
+
         <action id="org.openpolicyagent.ideaplugin.ide.actions.RegoCreateFileAction"
                 class="org.openpolicyagent.ideaplugin.ide.actions.RegoCreateFileAction"
                 text="Rego File"

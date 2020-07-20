@@ -10,6 +10,7 @@ import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowAnchor
 import com.intellij.openapi.wm.ToolWindowManager
 import com.intellij.ui.content.impl.ContentImpl
@@ -58,10 +59,8 @@ class OPAActionToolWindow {
                     if (existing != null) {
                         toolWindow.contentManager.removeContent(existing, true)
                     }
-                    consoleContent.manager = toolWindow.contentManager
-                    toolWindow.contentManager.addContent(consoleContent)
 
-                    toolWindow.show(null)
+                    attachAndShowConsole(consoleContent, toolWindow)
                     return@invokeLater
                 }
 
@@ -72,12 +71,19 @@ class OPAActionToolWindow {
                 toolWindow.isShowStripeButton = true
                 toolWindow.icon = AllIcons.Toolwindows.ToolWindowMessages
 
-                consoleContent.manager = toolWindow.contentManager
-                toolWindow.contentManager.addContent(consoleContent)
-                toolWindow.show(null)
+                attachAndShowConsole(consoleContent, toolWindow)
             }
         } catch (e: ExecutionException) {
             e.printStackTrace()
         }
+    }
+
+    //helper to attach console window running porcess to opa tool window
+    private fun attachAndShowConsole(consoleContent: ContentImpl, toolWindow: ToolWindow){
+        consoleContent.manager = toolWindow.contentManager
+        toolWindow.contentManager.addContent(consoleContent)
+        toolWindow.contentManager.setSelectedContent(consoleContent)
+
+        toolWindow.show(null)
     }
 }
