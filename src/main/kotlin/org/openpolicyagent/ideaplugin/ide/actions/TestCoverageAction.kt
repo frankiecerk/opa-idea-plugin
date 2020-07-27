@@ -12,8 +12,7 @@ class TestCoverageAction : DumbAwareAction() {
     }
 
     override fun actionPerformed(e: AnActionEvent) {
-        val (project, document) = getProjectAndDocument(e) ?: return
-        val editor = getEditor(e) ?: return
-        OpaActions().testWorkspaceCoverage(project, document, editor)
+        val (project, _) = getProjectAndDocument(e) ?: return
+        OpaActions().testWorkspaceCoverage(project)
     }
 }
