@@ -1,12 +1,16 @@
 package org.openpolicyagent.ideaplugin.opa.tool
 
-import com.intellij.codeInsight.hint.HintManager
+
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
+
 import org.openpolicyagent.ideaplugin.ide.actions.fileDirectChildOfRoot
 import org.openpolicyagent.ideaplugin.ide.actions.getImportsAsString
 import org.openpolicyagent.ideaplugin.ide.actions.getPackageAsString
+
 import org.openpolicyagent.ideaplugin.ide.extensions.OPAActionToolWindow
 import org.openpolicyagent.ideaplugin.lang.psi.isRegoFile
 import org.openpolicyagent.ideaplugin.openapiext.virtualFile
@@ -24,16 +28,19 @@ class OpaActions : OpaBaseTool() {
      */
 
     fun checkDocument(project: Project, document: Document, editor: Editor) {
+        val title = "Opa Check"
         val file = document.virtualFile
         if (file != null && file.isRegoFile && file.isValid) {
             val opaWindow = OPAActionToolWindow()
             // todo: get path to file relative to project path
-            val path_to_file = file.path.removePrefix(project.basePath.toString()).removeRange(0, 1)
-            val args = mutableListOf("check", path_to_file)
+
+            val pathToFile = file.path.removePrefix(project.basePath.toString()).removeRange(0, 1)
+            val args = mutableListOf("check", pathToFile)
             opaWindow.runProcessInConsole(project, args, "Opa Check")
+
         } else {
             //todo: currently it appears this does nothing :(
-            HintManager.getInstance().showErrorHint(editor, "Current file not valid or not Rego file")
+            Notification("ActionNotPerformed", title, "Current file invalid", NotificationType.ERROR).notify(project)
         }
 
     }
