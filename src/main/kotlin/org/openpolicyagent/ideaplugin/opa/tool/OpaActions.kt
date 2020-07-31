@@ -18,37 +18,31 @@ import org.openpolicyagent.ideaplugin.openapiext.virtualFile
 /**
  * Utility class to format Rego file with opaFmt
  *
- * @see org.openpolicyagent.ideaplugin.ide.actions.CheckAction
+ * @see org.openpolicyagent.ideaplugin.ide.actions.CheckDocumentAction
  */
 class OpaActions : OpaBaseTool() {
 
     /**
-     * Opens window running opa test on the current file, or popup if current
+     * Opens window running opa check on the current file, or popup if current
      * file is not a rego file
      */
-
     fun checkDocument(project: Project, document: Document, editor: Editor) {
         val title = "Opa Check"
         val file = document.virtualFile
         if (file != null && file.isRegoFile && file.isValid) {
             val opaWindow = OPAActionToolWindow()
-            // todo: get path to file relative to project path
-
             val pathToFile = file.path.removePrefix(project.basePath.toString()).removeRange(0, 1)
             val args = mutableListOf("check", pathToFile)
             opaWindow.runProcessInConsole(project, args, "Opa Check")
-
         } else {
-            //todo: currently it appears this does nothing :(
-            Notification("ActionNotPerformed", title, "Current file invalid", NotificationType.ERROR).notify(project)
+            Notification("ActionNotPerformed", title, "Current file invalid or not Rego file", NotificationType.ERROR).notify(project)
         }
-
     }
 
     /**
      * Opens window running opa test --verbose on project directory
      */
-     fun testWorkspace(project: Project, document: Document, editor: Editor) {
+     fun testWorkspace(project: Project) {
             val opaWindow = OPAActionToolWindow()
             val args = mutableListOf("test", ".", "--verbose")
             opaWindow.runProcessInConsole(project, args, "Opa Test")
